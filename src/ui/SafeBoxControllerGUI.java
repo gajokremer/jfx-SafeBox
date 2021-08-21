@@ -29,7 +29,16 @@ public class SafeBoxControllerGUI {
     private Label txtResult;
     
     @FXML
+    private Label txtResult1;
+    
+    @FXML
     private TextArea txtInfo;
+    
+    @FXML
+    private PasswordField txtOldPass;
+    
+    @FXML
+    private PasswordField txtNewPass;
     
     
     private Stage mainStage;
@@ -49,6 +58,26 @@ public class SafeBoxControllerGUI {
 		String userPass = txtPassword.getText();
 		
 		boolean result = PasswordReader.correctPassword(userPass);
+		
+		return result;
+	}
+	
+	@FXML
+	boolean currentPassword(ActionEvent event) {
+		
+		String userPass = txtOldPass.getText();
+		
+		boolean result = PasswordReader.correctPassword(userPass);
+		
+		return result;
+	}
+	
+	@FXML
+	boolean differentPasswords(ActionEvent event) {
+		
+		String newPass = txtNewPass.getText();
+		
+		boolean result = PasswordReader.differentPasswords(newPass);
 		
 		return result;
 	}
@@ -105,7 +134,7 @@ public class SafeBoxControllerGUI {
 
     //---WINDOW 3
     @FXML
-    void closeTheBox(ActionEvent event) throws IOException {
+    public void closeTheBox(ActionEvent event) throws IOException {
 
     	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("SafeBox1.fxml"));
     	fxmlloader.setController(this);
@@ -118,15 +147,35 @@ public class SafeBoxControllerGUI {
     }
 
     @FXML
-    void confirmPass(ActionEvent event) throws IOException {
-
-    	FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("SafeBox3.fxml"));
-    	fxmlloader.setController(this);
-    	Parent root = fxmlloader.load();
-    	Scene scene = new Scene(root);
+    public void confirmPass(ActionEvent event) throws IOException {
     	
-    	mainStage.setScene(scene);
-    	mainStage.setTitle("Window 3");
-    	mainStage.show();    	
+    	String message = "";
+    	
+    	if(currentPassword(event) == true && differentPasswords(event) == true) {
+    		
+    		PasswordReader.changePassword(txtNewPass.getText());
+    		
+    		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("SafeBox2.fxml"));
+    		fxmlloader.setController(this);
+    		Parent root = fxmlloader.load();
+    		Scene scene = new Scene(root);
+    		
+    		mainStage.setScene(scene);
+    		mainStage.setTitle("Window 2");
+    		mainStage.show();    	
+    		
+    	}
+    	
+    	if(currentPassword(event) == false){
+    		
+    		message = "Incorrect current Password!";
+    		txtResult1.setText(message);
+    	}
+    	
+    	if(differentPasswords(event) == false) {
+    		
+    		message = "Passwords can't be the same!";
+    		txtResult1.setText(message);
+    	}
     }
 }

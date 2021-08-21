@@ -8,7 +8,7 @@ public class PasswordReader {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public static void setPassword(String password) {
 		PasswordReader.password = password;
 	}
 
@@ -23,5 +23,21 @@ public class PasswordReader {
 		
 		return result;
 	}
-
+	
+	public static boolean differentPasswords(String newPass) {
+		
+		boolean result = false;
+		
+		if(!newPass.equals(password)) {
+			
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	public static void changePassword(String newPass) {
+		
+		setPassword(newPass);
+	}
 }
