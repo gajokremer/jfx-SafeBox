@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="labTitle" layoutX="235.0" layoutY="50.0" text="Window 1">
+      <Label fx:id="labTitle" layoutX="248.0" layoutY="50.0" text="SafeBox">
          <font>
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
