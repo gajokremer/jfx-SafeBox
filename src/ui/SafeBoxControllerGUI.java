@@ -163,7 +163,6 @@ public class SafeBoxControllerGUI {
     		mainStage.setScene(scene);
     		mainStage.setTitle("Window 2");
     		mainStage.show();    	
-    		
     	}
     	
     	if(currentPassword(event) == false){
