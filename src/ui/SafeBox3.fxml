@@ -35,7 +35,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="txtResult1" alignment="CENTER" layoutX="174.0" layoutY="253.0" prefHeight="32.0" prefWidth="249.0">
+      <Label fx:id="txtResult1" alignment="CENTER" layoutX="159.0" layoutY="253.0" prefHeight="32.0" prefWidth="280.0">
          <font>
             <Font name="Times New Roman Italic" size="18.0" />
          </font>

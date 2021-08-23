@@ -36,6 +36,20 @@ public class PasswordReader {
 		return result;
 	}
 	
+	public static boolean passwordLength(String userPass) {
+		
+		boolean result = false;
+		
+		int length = userPass.length();
+		
+		if(length == 6) {
+			
+			result = true;
+		}
+		
+		return result;
+	}
+	
 	public static void changePassword(String newPass) {
 		
 		setPassword(newPass);

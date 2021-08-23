@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import model.PasswordReader;
+import sun.security.util.Password;
 
 public class SafeBoxControllerGUI {
 	
@@ -52,42 +53,18 @@ public class SafeBoxControllerGUI {
 	}
 	
 	//---WINDOW 1
-	@FXML	
-	boolean correctPassword(ActionEvent event) {
-			
-		String userPass = txtPassword.getText();
-		
-		boolean result = PasswordReader.correctPassword(userPass);
-		
-		return result;
-	}
-	
-	@FXML
-	boolean currentPassword(ActionEvent event) {
-		
-		String userPass = txtOldPass.getText();
-		
-		boolean result = PasswordReader.correctPassword(userPass);
-		
-		return result;
-	}
-	
-	@FXML
-	boolean differentPasswords(ActionEvent event) {
-		
-		String newPass = txtNewPass.getText();
-		
-		boolean result = PasswordReader.differentPasswords(newPass);
-		
-		return result;
-	}
-	
 	@FXML
 	public void openBox(ActionEvent event) throws IOException {
 		
 		String message = "";
 		
-		if(correctPassword(event) == true) {
+		String userPass = txtPassword.getText();
+		
+		boolean correctPassword = PasswordReader.correctPassword(userPass);
+		
+		boolean correctLength = PasswordReader.passwordLength(userPass);
+		
+		if(correctPassword == true && correctLength == true) {
 			
 			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("SafeBox2.fxml"));
 			fxmlloader.setController(this);
@@ -98,9 +75,17 @@ public class SafeBoxControllerGUI {
 			mainStage.setTitle("Window 2");
 			mainStage.show();
 			
-		} else {
+		} 
+		
+		if(correctPassword == false) {
 			
 			message = "Incorrect Password!";
+			txtResult.setText(message);
+		}
+		
+		if(correctLength == false) {
+			
+			message = "Password has to be 6 digits long!";
 			txtResult.setText(message);
 		}
 	}
@@ -151,9 +136,19 @@ public class SafeBoxControllerGUI {
     	
     	String message = "";
     	
-    	if(currentPassword(event) == true && differentPasswords(event) == true) {
+		String oldPass = txtOldPass.getText();
+		
+		String newPass = txtNewPass.getText();
+		
+		boolean correctPassword = PasswordReader.correctPassword(oldPass);
+		
+		boolean differentPasswords = PasswordReader.differentPasswords(newPass);
+		
+		boolean correctLength = PasswordReader.passwordLength(newPass);
+    	
+    	if(correctPassword == true && differentPasswords == true && correctLength == true) {
     		
-    		PasswordReader.changePassword(txtNewPass.getText());
+    		PasswordReader.changePassword(newPass);
     		
     		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("SafeBox2.fxml"));
     		fxmlloader.setController(this);
@@ -165,16 +160,22 @@ public class SafeBoxControllerGUI {
     		mainStage.show();    	
     	}
     	
-    	if(currentPassword(event) == false){
+    	if(correctPassword == false){
     		
     		message = "Incorrect current Password!";
     		txtResult1.setText(message);
     	}
     	
-    	if(differentPasswords(event) == false) {
+    	if(differentPasswords == false) {
     		
     		message = "Passwords can't be the same!";
     		txtResult1.setText(message);
     	}
+    	
+    	if(correctLength == false) {
+			
+			message = "Password has to be 6 digits long!";
+			txtResult1.setText(message);
+		}
     }
 }
